@@ -18,5 +18,17 @@ class cryptocurrency {
     $result = database::insertOne($sql, $options);
     return $result;
   }
+
+  public function getCryptocurrencyDetailByName($cryptocurrencyName)
+  {
+    $sql = "SELECT *
+            FROM cryptocurrency_live
+            WHERE cryptocurrency
+            LIKE '" . $cryptocurrencyName . "'
+             ORDER BY cryptocurrency_live_id DESC LIMIT 1";
+             
+    $result = database::getOne($sql, array());
+    return $result;
+  }
 }
 ?>
