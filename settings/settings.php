@@ -1,6 +1,6 @@
 <?php
  $host = 'localhost';
- $databaseName = 'testdb';
+ $databaseName = 'cryptoHoster';
  $userName = 'root';
  $password = 'password';
  
