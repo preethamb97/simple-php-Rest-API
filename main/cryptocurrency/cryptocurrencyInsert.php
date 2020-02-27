@@ -35,13 +35,20 @@ if($isVerified) {
     'tags' => $tags,
     'circulating_supply' => $circulating_supply,
     'data_compare' => $data_compare,
+    'updated_at' => date('Y-m-d H:i:s'),
     'created_at' => date('Y-m-d H:i:s'),
     'status' => $status
   );
 
   $result = $cryptoData;
   
-  $cryptoId = $cryptocurrencyLib->insertCryptocurrency($cryptoData);
+  $cryptoCurrencyDetail = $cryptocurrencyLib->getCryptocurrencyDetailByName($cryptoData['symbol']);
+  if (empty($cryptoCurrencyDetail)) {
+    $cryptoId = $cryptocurrencyLib->insertCryptocurrency($cryptoData);
+  } else {
+    $cryptoData['created_at'] = $cryptoCurrencyDetail['created_at'];
+    $cryptoId = $cryptocurrencyLib->updateCryptocurrency($cryptoData['symbol'], $cryptoData);
+  }
   
   $result['cryptoId'] = $cryptoData;
   $jsonFormat = json_encode($result, JSON_NUMERIC_CHECK);

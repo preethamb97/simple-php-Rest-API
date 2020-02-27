@@ -30,5 +30,18 @@ class cryptocurrency {
     $result = database::getOne($sql, array());
     return $result;
   }
+
+  public function updateCryptocurrency($cryptoName, $options)
+  {
+    $sql = "UPDATE cryptocurrency_live SET ";
+    foreach($options as $key=>$value) {
+      $sql .= $key.'='.$value.',';
+    }
+    $sql = rtrim($sql,',');
+    $sql .= " WHERE symbol=:cryptoName";
+
+    $result = database::updateOne($sql, array('cryptoName'=>$cryptoName));
+    return $result;
+  }
 }
 ?>
