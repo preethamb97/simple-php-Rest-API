@@ -33,14 +33,15 @@ class cryptocurrency {
 
   public function updateCryptocurrency($cryptoName, $options)
   {
-    $sql = "UPDATE cryptocurrency_live SET ";
-    foreach($options as $key=>$value) {
-      $sql .= $key.'='.$value.',';
-    }
-    $sql = rtrim($sql,',');
-    $sql .= " WHERE symbol=:cryptoName";
-
-    $result = database::updateOne($sql, array('cryptoName'=>$cryptoName));
+    $sql = "UPDATE cryptocurrency_live SET "; 
+    foreach($options as $key=>$value){
+      $sql .= $key."= :".$key.", ";
+    }    
+    $sql = rtrim($sql, ", ");
+    $sql .= " WHERE symbol =:cryptoName";
+    $options['cryptoName'] = $cryptoName;
+    
+    $result = database::updateOne($sql, $options);
     return $result;
   }
 }

@@ -23,7 +23,7 @@ $isVerified = autoload::verifyKey($key);
 if($isVerified) {
   $cryptoData = array(
     'cryptocurrency' => $cryptocurrency_symbol,
-    'max_supply' => $max_supply,
+    'max_supply' => isset($max_supply) ?$max_supply : 0,
     'last_updated' => $last_updated,
     'num_market_pairs' => $num_market_pairs,
     'symbol' => $symbol,
